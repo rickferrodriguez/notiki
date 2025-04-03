@@ -1,32 +1,23 @@
-import { useState } from 'react';
 import './App.css';
-import Button from './assets/components/Button';
+import Button from './components/Button.tsx';
+import Title from './components/Title.tsx';
 
 function App() {
-	const [count, setCount] = useState(0);
-	function addCounter() {
-		setCount(count + 1);
-	}
-
 	return (
 		<>
-			<section style={{ display: 'grid' }}>
+			<section className="container">
 				<aside>Carpetas</aside>
 				<main>
-					<section
-						style={{
-							display: 'flex',
-							gap: '10px',
-							justifyContent: 'center',
-						}}
-					>
-						<input style={{ width: '100%' }} type="text" />
-						<button onClick={() => addCounter()}>Add count</button>
-						<label>{count}</label>
+					<section className="header">
+						<Title />
+						<Button styleName="Save" title="Save" />
 					</section>
-					<section>
-						<Button />
-						<input type="text" />
+					<section className="note-section">
+						<h1
+							contentEditable="true"
+							aria-placeholder="Escribe lo que quieras..."
+						></h1>
+						<p contentEditable="true"></p>
 					</section>
 				</main>
 			</section>
