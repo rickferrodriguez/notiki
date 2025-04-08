@@ -1,6 +1,6 @@
 import './App.css';
 import Button from './components/Button.tsx';
-import Title from './components/Title.tsx';
+import Content from './components/Content.tsx';
 
 function App() {
 	return (
@@ -9,15 +9,11 @@ function App() {
 				<aside>Carpetas</aside>
 				<main>
 					<section className="header">
-						<Title />
 						<Button styleName="Save" title="Save" />
 					</section>
 					<section className="note-section">
-						<h1
-							contentEditable="true"
-							aria-placeholder="Escribe lo que quieras..."
-						></h1>
-						<p contentEditable="true"></p>
+						<Content isTitle={true} content="" />
+						<Content isTitle={false} content="" />
 					</section>
 				</main>
 			</section>

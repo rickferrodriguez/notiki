@@ -1,0 +1,23 @@
+.content {
+	border: none;
+}
+.content:empty:after {
+	content: attr(aria-placeholder);
+	color: gray;
+}
+.content:focus {
+	outline: none;
+	border: none;
+}
+
+.title {
+	border: none;
+}
+.title:empty:after {
+	content: attr(aria-placeholder);
+	color: gray;
+}
+.title:focus {
+	outline: none;
+	border: none;
+}
