@@ -1,23 +1,19 @@
-.content {
-	border: none;
+.content-container {
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+	padding: 0px;
 }
-.content:empty:after {
-	content: attr(aria-placeholder);
-	color: gray;
-}
-.content:focus {
+
+textarea,
+input {
 	outline: none;
 	border: none;
+	width: fit-content;
+	background-color: #242424;
+	resize: none;
 }
 
 .title {
-	border: none;
-}
-.title:empty:after {
-	content: attr(aria-placeholder);
-	color: gray;
-}
-.title:focus {
-	outline: none;
-	border: none;
+	font-size: 2rem;
 }

@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import './App.css';
 import Button from './components/Button.tsx';
 import Content from './components/Content.tsx';
 
 function App() {
-	const [texto, setTexto] = useState<string>(
-		'Este es un contenido de prueba'
-	);
 	return (
 		<>
 			<section className="container">
@@ -16,8 +12,7 @@ function App() {
 						<Button styleName="Save" title="Save" />
 					</section>
 					<section className="note-section">
-						<Content isTitle={true} content="" />
-						<Content isTitle={false} content={texto} />
+						<Content />
 					</section>
 				</main>
 			</section>

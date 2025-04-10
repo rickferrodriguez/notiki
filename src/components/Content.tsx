@@ -1,28 +1,28 @@
+import { useState } from 'react';
 import './Content.css';
-interface ContentProps {
-	isTitle: boolean;
-	content: string;
-}
-export default function Content({ isTitle, content }: ContentProps) {
+export default function Content() {
+	const [text, setText] = useState<string>('');
+	const [title, setTitle] = useState<string>('');
+
+	function handleTitle(e: React.ChangeEvent<HTMLInputElement>) {
+		setTitle(e.target.textContent || '');
+	}
+	function handleContentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+		setText(e.target.textContent || '');
+	}
 	return (
-		<>
-			{isTitle ? (
-				<h1
-					contentEditable
-					aria-placeholder="Nueva Nota"
-					className="title"
-				>
-					{content}
-				</h1>
-			) : (
-				<div
-					contentEditable
-					aria-placeholder="Escribe lo que quieras..."
-					className="content"
-				>
-					{content}
-				</div>
-			)}
-		</>
+		<section className="content-container">
+			<input
+				type="text"
+				className="title"
+				placeholder="Título"
+				onChange={handleTitle}
+			/>
+			<textarea
+				onChange={handleContentChange}
+				className="content"
+				placeholder="Escribe algo..."
+			/>
+		</section>
 	);
 }

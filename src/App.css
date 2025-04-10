@@ -2,7 +2,6 @@
 	padding: 2rem;
 	display: grid;
 	grid-template-columns: 25% 75%;
-	color: #fff;
 }
 
 .header {
