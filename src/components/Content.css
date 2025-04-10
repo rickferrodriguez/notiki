@@ -16,4 +16,9 @@ input {
 
 .title {
 	font-size: 2rem;
+	width: 100%;
+}
+
+.content {
+	width: 100%;
 }
