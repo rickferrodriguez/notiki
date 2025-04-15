@@ -15,7 +15,11 @@ function App() {
 		setText(e.target.value || '');
 	}
 	function handleClick() {
-		console.log(title, text);
+		for (const note of notas) {
+			note.title = title;
+			note.content = text;
+		}
+		console.log(notas);
 	}
 	return (
 		<>
