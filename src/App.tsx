@@ -6,7 +6,7 @@ import Content from './components/Content.tsx';
 function App() {
 	const [inputTitle, setInputTitle] = useState<string>('');
 	const [inputText, setInputText] = useState<string>('');
-	const initialNotes = [{ title: 'a', content: 'b' }];
+	const initialNotes = [{ id: 0, title: 'a', content: 'b' }];
 	const [notes, setNotes] = useState(initialNotes);
 
 	function handleTitle(e: React.ChangeEvent<HTMLInputElement>) {
@@ -16,26 +16,16 @@ function App() {
 		setInputText(e.target.value || '');
 	}
 	function handleClick() {
-		for (const note of notes) {
-			if (note.title != '') {
-				console.log('entró');
-				setNotes([
-					...notes,
-					{
-						title: inputTitle,
-						content: inputText,
-					},
-				]);
-			}
-
-			setNotes([
-				{
-					title: inputTitle,
-					content: inputText,
-				},
-			]);
-		}
-		console.log(notes);
+		const noteObject = {
+			id: Math.random(),
+			title: inputTitle,
+			content: inputText,
+		};
+		setNotes([...notes, noteObject]);
+		window.localStorage.setItem(
+			noteObject.id.toString(),
+			JSON.stringify(noteObject)
+		);
 	}
 	return (
 		<>
