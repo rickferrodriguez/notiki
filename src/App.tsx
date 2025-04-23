@@ -6,7 +6,7 @@ import Content from './components/Content.tsx';
 function App() {
 	const [inputTitle, setInputTitle] = useState<string>('');
 	const [inputText, setInputText] = useState<string>('');
-	const initialNotes = [{ id: 0, title: 'a', content: 'b' }];
+	const initialNotes = [{ id: 0, title: '', content: '' }];
 	const [notes, setNotes] = useState(initialNotes);
 
 	function handleTitle(e: React.ChangeEvent<HTMLInputElement>) {
@@ -21,12 +21,21 @@ function App() {
 			title: inputTitle,
 			content: inputText,
 		};
-		setNotes([...notes, noteObject]);
-		window.localStorage.setItem(
-			noteObject.id.toString(),
-			JSON.stringify(noteObject)
-		);
+		for (const note of notes) {
+			if (note.title === '' && notes.length === 1) {
+				console.log('Esta nota está vacia y es la primera');
+				setNotes([noteObject]);
+			} else {
+				console.log('else');
+				setNotes([...notes, noteObject]);
+			}
+		}
+		// window.localStorage.setItem(
+		// 	noteObject.id.toString(),
+		// 	JSON.stringify(noteObject)
+		// );
 	}
+	console.log(notes.length, notes);
 	return (
 		<>
 			<section className="container">
