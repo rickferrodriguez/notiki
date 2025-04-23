@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import './App.css';
 import Button from './components/Button.tsx';
 import Content from './components/Content.tsx';
+import { Notes } from './types/notes.types.ts';
 
 function App() {
+	let noteId: number = 0;
 	const [inputTitle, setInputTitle] = useState<string>('');
 	const [inputText, setInputText] = useState<string>('');
-	const initialNotes = [{ id: 0, title: '', content: '' }];
+	const initialNotes: Notes[] = [{ id: 0, title: '', content: '' }];
 	const [notes, setNotes] = useState(initialNotes);
 
 	function handleTitle(e: React.ChangeEvent<HTMLInputElement>) {
@@ -16,15 +18,21 @@ function App() {
 		setInputText(e.target.value || '');
 	}
 	function handleClick() {
-		const noteObject = {
-			id: Math.random(),
+		const noteObject: Notes = {
+			id: noteId++,
 			title: inputTitle,
 			content: inputText,
 		};
 		for (const note of notes) {
 			if (note.title === '' && notes.length === 1) {
 				console.log('Esta nota está vacia y es la primera');
-				setNotes([noteObject]);
+				setNotes([
+					{
+						id: noteId,
+						title: inputTitle,
+						content: inputText,
+					},
+				]);
 			} else {
 				console.log('else');
 				setNotes([...notes, noteObject]);
