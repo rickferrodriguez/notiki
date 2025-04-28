@@ -1,10 +1,15 @@
-export default function Files({ files }: { files: string[] }) {
+import { Notes } from '../types/notes.types';
+import './Files.css';
+
+export default function Files({ files }: { files: Notes[] }) {
 	return (
 		<>
 			<aside>
-				{files.map((file) => (
-					<li>{file}</li>
-				))}
+				<ul>
+					{files.map((file) => (
+						<li key={file.id}>{file.title}</li>
+					))}
+				</ul>
 			</aside>
 		</>
 	);

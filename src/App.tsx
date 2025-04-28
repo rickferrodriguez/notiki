@@ -3,6 +3,7 @@ import './App.css';
 import Button from './components/Button.tsx';
 import Content from './components/Content.tsx';
 import { Notes } from './types/notes.types.ts';
+import Files from './components/Files.tsx';
 
 function App() {
 	let noteId: number = 0;
@@ -49,7 +50,11 @@ function App() {
 			<section className="container">
 				<aside>
 					<h1>Carpetas</h1>
-					<section>{inputTitle}</section>
+					{notes[0].title !== '' ? (
+						<Files files={notes}></Files>
+					) : (
+						'Nueva Nota'
+					)}
 				</aside>
 				<main>
 					<section className="header">
