@@ -1,24 +1,24 @@
 .content-container {
-	display: flex;
-	flex-direction: column;
-	margin: 0px;
-	padding: 0px;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
 }
 
 textarea,
 input {
-	outline: none;
-	border: none;
-	width: fit-content;
-	background-color: #242424;
-	resize: none;
+    outline: none;
+    border: none;
+    width: fit-content;
+    background-color: #242424;
+    resize: none;
 }
 
 .title {
-	font-size: 2rem;
-	width: 100%;
+    font-size: 2rem;
+    width: 100%;
 }
 
 .content {
-	width: 100%;
+    width: 100%;
 }
