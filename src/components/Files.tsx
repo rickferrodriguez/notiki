@@ -4,13 +4,15 @@ import './Files.css';
 export default function Files({ files }: { files: Notes[] }) {
 	return (
 		<>
-			<aside>
+			{files[0].title !== '' ? (
 				<ul>
 					{files.map((file) => (
 						<li key={file.id}>{file.title}</li>
 					))}
 				</ul>
-			</aside>
+			) : (
+				<li>Nueva nota</li>
+			)}
 		</>
 	);
 }

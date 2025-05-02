@@ -50,11 +50,7 @@ function App() {
 			<section className="container">
 				<aside>
 					<h1>Carpetas</h1>
-					{notes[0].title !== '' ? (
-						<Files files={notes}></Files>
-					) : (
-						'Nueva Nota'
-					)}
+					<Files files={notes}></Files>
 				</aside>
 				<main>
 					<section className="header">
