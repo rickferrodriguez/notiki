@@ -11,7 +11,9 @@ export default function Files({ files }: { files: Notes[] }) {
                     ))}
                 </ul>
             ) : (
-                <li>Nueva nota</li>
+                <ul>
+                    <li>Nueva nota</li>
+                </ul>
             )}
         </>
     );
