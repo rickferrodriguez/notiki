@@ -11,12 +11,17 @@ function App() {
     const [inputText, setInputText] = useState<string>('');
     const initialNotes: Notes[] = [{ id: 0, title: '', content: '' }];
     const [notes, setNotes] = useState(initialNotes);
+    const [actualNote, setActualNote] = useState<number>(0);
 
     function handleTitle(e: React.ChangeEvent<HTMLInputElement>) {
         setInputTitle(e.target.value || '');
     }
     function handleContentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setInputText(e.target.value || '');
+    }
+    function handleActualNote(idNote: number) {
+        console.log(idNote);
+        setActualNote(idNote);
     }
     function handleClick() {
         const noteObject: Notes = {
@@ -50,7 +55,10 @@ function App() {
             <section className="container">
                 <aside>
                     <h1>Carpetas</h1>
-                    <Files files={notes}></Files>
+                    <Files
+                        files={notes}
+                        handleActualNote={() => handleActualNote(actualNote)}
+                    ></Files>
                 </aside>
                 <main>
                     <section className="header">
