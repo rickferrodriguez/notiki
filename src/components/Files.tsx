@@ -3,17 +3,21 @@ import './Files.css';
 
 export default function Files({
     files,
-    handleActualNote,
+    sendIdNote,
 }: {
     files: Notes[];
-    handleActualNote: (id: number) => void;
+    sendIdNote: (id: number) => void;
 }) {
+    function handleSendId(id: number) {
+        console.log(id);
+        sendIdNote(id);
+    }
     function Note({ myNotes }: { myNotes: Notes[] }) {
         if (myNotes[0].title === '') {
             return <li>Nueva Nota</li>;
         } else
             return myNotes.map((file) => (
-                <li key={file.id} onClick={() => handleActualNote(file.id)}>
+                <li key={file.id} onClick={() => handleSendId(file.id)}>
                     {file.title}
                 </li>
             ));

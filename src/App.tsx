@@ -20,45 +20,40 @@ function App() {
         setInputText(e.target.value || '');
     }
     function handleActualNote(idNote: number) {
-        console.log(idNote);
         setActualNote(idNote);
     }
+    console.log(notes);
     function handleClick() {
+        console.log(noteId);
         const noteObject: Notes = {
             id: noteId++,
             title: inputTitle,
             content: inputText,
         };
-        for (const note of notes) {
-            if (note.title === '' && notes.length === 1) {
-                console.log('Esta nota está vacia y es la primera');
-                setNotes([
-                    {
-                        id: noteId,
-                        title: inputTitle,
-                        content: inputText,
-                    },
-                ]);
-            } else {
-                console.log('else');
-                setNotes([...notes, noteObject]);
-            }
+        if (notes[0].title === '' && notes.length === 1) {
+            console.log('Esta nota está vacia y es la primera');
+            setNotes([
+                {
+                    id: noteId,
+                    title: inputTitle,
+                    content: inputText,
+                },
+            ]);
+        } else {
+            console.log('else');
+            setNotes([...notes, noteObject]);
         }
         // window.localStorage.setItem(
         // 	noteObject.id.toString(),
         // 	JSON.stringify(noteObject)
         // );
     }
-    console.log(notes.length, notes);
     return (
         <>
             <section className="container">
                 <aside>
                     <h1>Carpetas</h1>
-                    <Files
-                        files={notes}
-                        handleActualNote={() => handleActualNote(actualNote)}
-                    ></Files>
+                    <Files files={notes} sendIdNote={handleActualNote}></Files>
                 </aside>
                 <main>
                     <section className="header">
