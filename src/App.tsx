@@ -22,7 +22,7 @@ function App() {
     function handleActualNote(idNote: number) {
         setActualNote(idNote);
     }
-    console.log(notes);
+    console.log(actualNote);
     function handleClick() {
         console.log(noteId);
         const noteObject: Notes = {
@@ -39,6 +39,18 @@ function App() {
                     content: inputText,
                 },
             ]);
+        } else if (actualNote !== 0) {
+            for (const note of notes) {
+                // TODO aprender a traes el elemento de un array y remplazarlo por el mío
+                if (note.id === actualNote) {
+                    const replacedNote: Notes = {
+                        id: actualNote,
+                        title: inputTitle,
+                        content: inputText,
+                    };
+                    setNotes([...notes, replacedNote]);
+                }
+            }
         } else {
             console.log('else');
             setNotes([...notes, noteObject]);
