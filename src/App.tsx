@@ -6,59 +6,58 @@ import { Notes } from './types/notes.types.ts';
 import Files from './components/Files.tsx';
 
 function App() {
-    let noteId: number = 0;
-    const [inputTitle, setInputTitle] = useState<string>('');
-    const [inputText, setInputText] = useState<string>('');
     const initialNotes: Notes[] = [{ id: 0, title: '', content: '' }];
     const [notes, setNotes] = useState(initialNotes);
     const [actualNote, setActualNote] = useState<number>(0);
 
-    function handleTitle(e: React.ChangeEvent<HTMLInputElement>) {
-        setInputTitle(e.target.value || '');
-    }
-    function handleContentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        setInputText(e.target.value || '');
+    function handleSaveNote(formData: FormData) {
+        let formTitle = '';
+        let formContent = '';
+        for (const [key, value] of formData.entries()) {
+            if (key === 'title') {
+                formTitle = value.toString();
+            } else if (key === 'content') {
+                formContent = value.toString();
+            }
+        }
+        notes.map((note, index) => {
+            if (index === 0 && note.title === '') {
+                console.log('Esta es la primera nota y está vacía', formTitle);
+                setNotes([
+                    {
+                        id: index,
+                        title: formTitle,
+                        content: formContent,
+                    },
+                ]);
+            } else if (actualNote === index) {
+                console.log('es la nota actual');
+                setNotes([
+                    (note = {
+                        id: index,
+                        title: formTitle,
+                        content: formContent,
+                    }),
+                ]);
+            } else {
+                console.log('nueva nota', index);
+                setNotes([
+                    ...notes,
+                    {
+                        id: index++,
+                        title: formTitle,
+                        content: formContent,
+                    },
+                ]);
+            }
+        });
+        // window.localStorage.setItem(
+        // 	newNote.id.toString(),
+        // 	JSON.stringify(newNote)
+        // );
     }
     function handleActualNote(idNote: number) {
         setActualNote(idNote);
-    }
-    console.log(actualNote);
-    function handleClick() {
-        console.log(noteId);
-        const noteObject: Notes = {
-            id: noteId++,
-            title: inputTitle,
-            content: inputText,
-        };
-        if (notes[0].title === '' && notes.length === 1) {
-            console.log('Esta nota está vacia y es la primera');
-            setNotes([
-                {
-                    id: noteId,
-                    title: inputTitle,
-                    content: inputText,
-                },
-            ]);
-        } else if (actualNote !== 0) {
-            for (const note of notes) {
-                // TODO aprender a traes el elemento de un array y remplazarlo por el mío
-                if (note.id === actualNote) {
-                    const replacedNote: Notes = {
-                        id: actualNote,
-                        title: inputTitle,
-                        content: inputText,
-                    };
-                    setNotes([...notes, replacedNote]);
-                }
-            }
-        } else {
-            console.log('else');
-            setNotes([...notes, noteObject]);
-        }
-        // window.localStorage.setItem(
-        // 	noteObject.id.toString(),
-        // 	JSON.stringify(noteObject)
-        // );
     }
     return (
         <>
@@ -68,20 +67,8 @@ function App() {
                     <Files files={notes} sendIdNote={handleActualNote}></Files>
                 </aside>
                 <main>
-                    <section className="header">
-                        <Button
-                            handleClick={handleClick}
-                            styleName="Save"
-                            title="Save"
-                        />
-                    </section>
                     <section className="note-section">
-                        <Content
-                            text={inputText}
-                            title={inputTitle}
-                            onTextArea={handleContentChange}
-                            onInput={handleTitle}
-                        />
+                        <Content sendNote={handleSaveNote} />
                     </section>
                 </main>
             </section>

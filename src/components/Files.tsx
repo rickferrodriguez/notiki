@@ -9,7 +9,6 @@ export default function Files({
     sendIdNote: (id: number) => void;
 }) {
     function handleSendId(id: number) {
-        console.log(id);
         sendIdNote(id);
     }
     function Note({ myNotes }: { myNotes: Notes[] }) {

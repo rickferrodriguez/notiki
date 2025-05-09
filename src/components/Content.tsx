@@ -1,32 +1,27 @@
-import { ChangeEvent } from 'react';
 import './Content.css';
 interface ContentType {
-    text: string;
-    title: string;
-    onTextArea: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-    onInput: (e: ChangeEvent<HTMLInputElement>) => void;
+    sendNote: (e: FormData) => void;
 }
-export default function Content({
-    text,
-    title,
-    onTextArea,
-    onInput,
-}: ContentType) {
+export default function Content({ sendNote }: ContentType) {
+    function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        sendNote(formData);
+    }
     return (
-        <section className="content-container">
+        <form onSubmit={handleSubmit} className="content-container">
             <input
                 type="text"
-                value={title}
+                name="title"
                 className="title"
                 placeholder="Título"
-                onChange={onInput}
             />
             <textarea
-                onChange={onTextArea}
+                name="content"
                 className="content"
                 placeholder="Escribe algo..."
-                value={text}
             />
-        </section>
+            <button type="submit">Guardar</button>
+        </form>
     );
 }
