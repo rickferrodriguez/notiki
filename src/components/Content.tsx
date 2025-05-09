@@ -1,3 +1,4 @@
+import Button from './Button';
 import './Content.css';
 interface ContentType {
     sendNote: (e: FormData) => void;
@@ -21,7 +22,12 @@ export default function Content({ sendNote }: ContentType) {
                 className="content"
                 placeholder="Escribe algo..."
             />
-            <button type="submit">Guardar</button>
+            <Button
+                handleClick={() => undefined}
+                type="submit"
+                title="Guardar"
+                styleName="submit"
+            />
         </form>
     );
 }

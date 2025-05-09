@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
-import Button from './components/Button.tsx';
 import Content from './components/Content.tsx';
 import { Notes } from './types/notes.types.ts';
 import Files from './components/Files.tsx';
