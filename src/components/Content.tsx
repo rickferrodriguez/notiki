@@ -22,12 +22,7 @@ export default function Content({ sendNote }: ContentType) {
                 className="content"
                 placeholder="Escribe algo..."
             />
-            <Button
-                handleClick={() => undefined}
-                type="submit"
-                title="Guardar"
-                styleName="submit"
-            />
+            <Button type="submit" title="Guardar" styleName="submit" />
         </form>
     );
 }

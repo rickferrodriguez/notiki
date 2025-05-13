@@ -1,0 +1,22 @@
+button {
+    border-radius: 1rem;
+    border: 1px solid white;
+    width: 10rem;
+    background-color: darkgray;
+}
+
+.add {
+    width: 9rem;
+    font-weight: bold;
+    background-color: transparent;
+    color: white;
+}
+.add:hover {
+    background-color: powderblue;
+    color: black;
+}
+
+.submit {
+    background-color: powderblue;
+    color: black;
+}
