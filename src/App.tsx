@@ -7,9 +7,17 @@ import Files from './components/Files.tsx';
 function App() {
     const initialNotes: Notes[] = [{ id: 0, title: 'Nueva nota', content: '' }];
     const [notes, setNotes] = useState(initialNotes);
-    const [actualNote, setActualNote] = useState<number>(0);
+    const [actualNote, setActualNote] = useState<Notes | undefined>({
+        id: 0,
+        title: '',
+        content: '',
+    });
     let formTitle = '';
     let formContent = '';
+
+    function handleActualNote(idNote: number) {
+        setActualNote(notes.find((note) => note.id === idNote));
+    }
 
     function handleSaveNote(formData: FormData) {
         for (const [key, value] of formData.entries()) {
@@ -19,34 +27,21 @@ function App() {
                 formContent = value.toString();
             }
         }
-        notes.map((note, index) => {
-            if (index === 0 && note.title === '') {
-                console.log('Esta es la primera nota y está vacía', formTitle);
-                setNotes([
-                    {
+
+        setNotes(
+            notes.map((note, index) => {
+                if (actualNote?.id === index) {
+                    return {
                         id: index,
                         title: formTitle,
                         content: formContent,
-                    },
-                ]);
-            } else if (actualNote === index) {
-                console.log('es la nota actual');
-                setNotes([
-                    (note = {
-                        id: index,
-                        title: formTitle,
-                        content: formContent,
-                    }),
-                ]);
-            }
-        });
-        // window.localStorage.setItem(
-        // 	newNote.id.toString(),
-        // 	JSON.stringify(newNote)
-        // );
+                    };
+                }
+                return note;
+            })
+        );
     }
     function addNewNote() {
-        console.log('new note???', notes);
         setNotes([
             ...notes,
             {
@@ -56,27 +51,21 @@ function App() {
             },
         ]);
     }
-    function handleActualNote(idNote: number) {
-        setActualNote(idNote);
-    }
     return (
-        <>
-            <section className="container">
-                <aside>
-                    <h1>Carpetas</h1>
-                    <Files
-                        files={notes}
-                        sendIdNote={handleActualNote}
-                        sendAddNewNote={() => addNewNote()}
-                    ></Files>
-                </aside>
-                <main>
-                    <section className="note-section">
-                        <Content sendNote={handleSaveNote} />
-                    </section>
-                </main>
-            </section>
-        </>
+        <section className="container">
+            <aside>
+                <h1>Carpetas</h1>
+                <Files
+                    files={notes}
+                    // TODO enviar la info de la nota actual
+                    sendIdNote={handleActualNote}
+                    sendAddNewNote={() => addNewNote()}
+                ></Files>
+            </aside>
+            <main className="note-section">
+                <Content sendNote={handleSaveNote} />
+            </main>
+        </section>
     );
 }
 
