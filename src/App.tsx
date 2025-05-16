@@ -57,12 +57,12 @@ function App() {
                 <h1>Carpetas</h1>
                 <Files
                     files={notes}
-                    // TODO enviar la info de la nota actual
                     sendIdNote={handleActualNote}
                     sendAddNewNote={() => addNewNote()}
                 ></Files>
             </aside>
             <main className="note-section">
+                // TODO enviar la info de la nota actual
                 <Content sendNote={handleSaveNote} />
             </main>
         </section>

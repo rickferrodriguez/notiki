@@ -16,6 +16,7 @@ export default function Content({ sendNote }: ContentType) {
                 name="title"
                 className="title"
                 placeholder="Título"
+                value={}
             />
             <textarea
                 name="content"
