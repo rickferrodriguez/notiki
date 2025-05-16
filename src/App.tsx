@@ -7,30 +7,32 @@ import Files from './components/Files';
 function App() {
     const initialNotes: Notes[] = [{ id: 0, title: 'Nueva nota', content: '' }];
     const [notes, setNotes] = useState(initialNotes);
-    const [actualNote, setActualNote] = useState<Notes | undefined>({
-        id: 0,
-        title: '',
-        content: '',
-    });
-    let formTitle = '';
-    let formContent = '';
+    const [actualNote, setActualNote] = useState<number>(0);
+    const [formTitle, setFormTitle] = useState<string>('');
+    const [formContent, setFormContent] = useState<string>('');
 
     function handleActualNote(idNote: number) {
-        setActualNote(notes.find((note) => note.id === idNote));
+        setActualNote(idNote);
+        notes.map((note, index) => {
+            if (index === idNote) {
+                setFormTitle(note.title);
+                setFormContent(note.content);
+            }
+        });
     }
 
-    function handleSaveNote(formData: FormData) {
-        for (const [key, value] of formData.entries()) {
-            if (key === 'title') {
-                formTitle = value.toString();
-            } else if (key === 'content') {
-                formContent = value.toString();
-            }
+    function handleOnChange(title: string, content: string) {
+        // TODO: arregla esto que no me deja escribir cuando quiero borrar todo
+        if (title !== '') {
+            setFormTitle(title);
+        } else if (content !== '') {
+            setFormContent(content);
         }
-
+    }
+    function handleSaveNote() {
         setNotes(
             notes.map((note, index) => {
-                if (actualNote?.id === index) {
+                if (actualNote === index) {
                     return {
                         id: index,
                         title: formTitle,
@@ -46,8 +48,8 @@ function App() {
             ...notes,
             {
                 id: notes.length++,
-                title: formTitle === '' ? 'Nueva nota' : formTitle,
-                content: formContent,
+                title: 'Nueva nota',
+                content: '',
             },
         ]);
     }
@@ -62,8 +64,12 @@ function App() {
                 ></Files>
             </aside>
             <main className="note-section">
-                // TODO enviar la info de la nota actual
-                <Content sendNote={handleSaveNote} />
+                <Content
+                    sendNote={handleSaveNote}
+                    sendHandle={handleOnChange}
+                    sendTitle={formTitle}
+                    sendContent={formContent}
+                />
             </main>
         </section>
     );
