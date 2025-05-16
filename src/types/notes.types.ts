@@ -3,3 +3,7 @@ export interface Notes {
     title: string;
     content: string;
 }
+
+export interface ContentType {
+    sendNote: (e: FormData) => void;
+}

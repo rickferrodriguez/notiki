@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './App.css';
-import Content from './components/Content.tsx';
+import Content from './components/Content';
 import { Notes } from './types/notes.types.ts';
-import Files from './components/Files.tsx';
+import Files from './components/Files';
 
 function App() {
     const initialNotes: Notes[] = [{ id: 0, title: 'Nueva nota', content: '' }];

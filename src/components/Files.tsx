@@ -22,15 +22,13 @@ export default function Files({
         ));
     }
     return (
-        <>
-            <ul>
-                <Note myNotes={files}></Note>
-                <Button
-                    title="+ Crear Nota"
-                    styleName="add"
-                    handleClick={sendAddNewNote}
-                />
-            </ul>
-        </>
+        <ul>
+            <Note myNotes={files} />
+            <Button
+                title="+ Crear Nota"
+                styleName="add"
+                handleClick={sendAddNewNote}
+            />
+        </ul>
     );
 }
