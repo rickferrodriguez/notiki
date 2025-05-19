@@ -44,6 +44,8 @@ function App() {
         );
     }
     function addNewNote() {
+        setFormTitle('');
+        setFormContent('');
         setNotes([
             ...notes,
             {

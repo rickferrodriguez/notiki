@@ -9,8 +9,11 @@
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
     "moduleResolution": "node",
-    "baseUrl": "src",
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["node_modules", "dist", "build"]
