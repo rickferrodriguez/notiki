@@ -1,14 +1,18 @@
 import { ContentType } from '@/types/notes.types';
 import Button from './Button';
 import './Content.css';
-import { useState } from 'react';
-import { Editable, Slate, withReact } from 'slate-react';
+import { useState, useMemo, useCallback } from 'react';
+import { Editable, RenderElementProps, Slate, withReact } from 'slate-react';
 import { createEditor, Descendant } from 'slate';
 
 const initialValue: Descendant[] = [
     {
-        type: 'paragraph',
-        children: [{ text: 'Este es el contenido' }],
+        type: 'title',
+        children: [{ text: '', bold: true }],
+    },
+    {
+        type: 'content',
+        children: [{ text: '' }],
     },
 ];
 export default function Content({
@@ -17,12 +21,22 @@ export default function Content({
     sendTitle,
     sendContent,
 }: ContentType) {
-    const [editor] = useState(() => withReact(createEditor()));
+    const editor = useMemo(() => withReact(createEditor()), []);
     const [value, setValue] = useState<Descendant[]>(initialValue);
-    function handleEditable(value: Descendant[]) {
-        setValue(value);
+    const renderElement = useCallback(
+        ({ attributes, children, element }: RenderElementProps) => {
+            switch (element.type) {
+                case 'title':
+                    return <h1 {...attributes}>{children}</h1>;
+                case 'content':
+                    return <p {...attributes}>{children}</p>;
+            }
+        },
+        []
+    );
+    function handleValue(content: Descendant[]) {
+        setValue(content);
     }
-    console.log(value);
     function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
         e.preventDefault();
         sendNote();
@@ -39,10 +53,14 @@ export default function Content({
         <div>
             <Slate
                 editor={editor}
-                onChange={(newValue) => handleEditable(newValue)}
-                initialValue={initialValue}
+                onChange={(newValue) => handleValue(newValue)}
+                initialValue={value}
             >
-                <Editable></Editable>
+                <Editable
+                    renderElement={renderElement}
+                    style={{ height: '20rem' }}
+                    placeholder="Nueva nota..."
+                ></Editable>
             </Slate>
             <form onSubmit={handleSubmit} className="content-container">
                 <input
