@@ -5,5 +5,8 @@ export interface Notes {
 }
 
 export interface ContentType {
-    sendNote: (e: FormData) => void;
+    sendNote: () => void;
+    sendHandle: (title: string, content: string) => void;
+    sendTitle: string;
+    sendContent: string;
 }
