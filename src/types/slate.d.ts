@@ -23,3 +23,4 @@ declare module 'slate' {
         Text: CustomText;
     }
 }
+export type CustomEditor = BaseEditor & ReactEditor;

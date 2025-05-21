@@ -2,8 +2,21 @@ import { ContentType } from '@/types/notes.types';
 import Button from './Button';
 import './Content.css';
 import { useState, useMemo, useCallback } from 'react';
-import { Editable, RenderElementProps, Slate, withReact } from 'slate-react';
-import { createEditor, Descendant } from 'slate';
+import {
+    Editable,
+    RenderElementProps,
+    Slate,
+    useSlateStatic,
+    withReact,
+} from 'slate-react';
+import {
+    createEditor,
+    Descendant,
+    Editor,
+    Element as SlateElement,
+    Transforms,
+} from 'slate';
+import { CustomEditor } from '@/types/slate';
 
 const initialValue: Descendant[] = [
     {
@@ -23,6 +36,26 @@ export default function Content({
 }: ContentType) {
     const editor = useMemo(() => withReact(createEditor()), []);
     const [value, setValue] = useState<Descendant[]>(initialValue);
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            // [match] funciona como si llamara al primer elemento de un array => match = array[0]
+            const [match] = Editor.nodes(editor, {
+                match: (n) =>
+                    !Editor.isEditor(n) &&
+                    SlateElement.isElement(n) &&
+                    n.type === 'title',
+            });
+
+            if (match) {
+                e.preventDefault();
+                Transforms.insertNodes(editor, {
+                    type: 'content',
+                    children: [{ text: '' }],
+                });
+            }
+        }
+    };
     const renderElement = useCallback(
         ({ attributes, children, element }: RenderElementProps) => {
             switch (element.type) {
@@ -57,6 +90,7 @@ export default function Content({
                 initialValue={value}
             >
                 <Editable
+                    onKeyDown={onKeyDown}
                     renderElement={renderElement}
                     style={{ height: '20rem' }}
                     placeholder="Nueva nota..."
