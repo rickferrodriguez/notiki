@@ -2,13 +2,7 @@ import { ContentType } from '@/types/notes.types';
 import Button from './Button';
 import './Content.css';
 import { useState, useMemo, useCallback } from 'react';
-import {
-    Editable,
-    RenderElementProps,
-    Slate,
-    useSlateStatic,
-    withReact,
-} from 'slate-react';
+import { Editable, RenderElementProps, Slate, withReact } from 'slate-react';
 import {
     createEditor,
     Descendant,
@@ -16,16 +10,11 @@ import {
     Element as SlateElement,
     Transforms,
 } from 'slate';
-import { CustomEditor } from '@/types/slate';
 
 const initialValue: Descendant[] = [
     {
         type: 'title',
         children: [{ text: '', bold: true }],
-    },
-    {
-        type: 'content',
-        children: [{ text: '' }],
     },
 ];
 export default function Content({

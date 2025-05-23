@@ -79,6 +79,9 @@ h6 {
     text-wrap: balance;
 }
 
+h1 {
+    font-size: 1.5rem;
+}
 /*
   10. Create a root stacking context
 */

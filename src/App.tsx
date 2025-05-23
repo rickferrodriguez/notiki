@@ -1,11 +1,19 @@
 import { useState } from 'react';
 import './App.css';
 import Content from './components/Content';
-import { Notes } from './types/notes.types.ts';
 import Files from './components/Files';
+import { Descendant } from 'slate';
+import { Notes } from './types/notes.types';
 
 function App() {
+    const initialValue: Descendant[] = [
+        {
+            type: 'title',
+            children: [{ text: '', bold: true }],
+        },
+    ];
     const initialNotes: Notes[] = [{ id: 0, title: 'Nueva nota', content: '' }];
+    const [desNotes, desSetNotes] = useState<Descendant[]>(initialValue);
     const [notes, setNotes] = useState(initialNotes);
     const [actualNote, setActualNote] = useState<number>(0);
     const [formTitle, setFormTitle] = useState<string>('');
@@ -31,13 +39,9 @@ function App() {
     }
     function handleSaveNote() {
         setNotes(
-            notes.map((note, index) => {
+            desNotes.map((note, index) => {
                 if (actualNote === index) {
-                    return {
-                        id: index,
-                        title: formTitle,
-                        content: formContent,
-                    };
+                    console.log(note);
                 }
                 return note;
             })
