@@ -1,7 +1,5 @@
-import { ContentType } from '@/types/notes.types';
-import Button from './Button';
 import './Content.css';
-import { useState, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { Editable, RenderElementProps, Slate, withReact } from 'slate-react';
 import {
     createEditor,
@@ -11,20 +9,14 @@ import {
     Transforms,
 } from 'slate';
 
-const initialValue: Descendant[] = [
-    {
-        type: 'title',
-        children: [{ text: '', bold: true }],
-    },
-];
 export default function Content({
     sendNote,
     sendHandle,
-    sendTitle,
-    sendContent,
-}: ContentType) {
+}: {
+    sendNote: Descendant[];
+    sendHandle: (content: Descendant[]) => void;
+}) {
     const editor = useMemo(() => withReact(createEditor()), []);
-    const [value, setValue] = useState<Descendant[]>(initialValue);
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
@@ -56,27 +48,12 @@ export default function Content({
         },
         []
     );
-    function handleValue(content: Descendant[]) {
-        setValue(content);
-    }
-    function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
-        e.preventDefault();
-        sendNote();
-    }
-    function handleOnTitle(e: React.FormEvent<HTMLInputElement>) {
-        const title = e.currentTarget.value;
-        sendHandle(title, '');
-    }
-    function handleOnArea(e: React.FormEvent<HTMLTextAreaElement>) {
-        const content = e.currentTarget.value;
-        sendHandle('', content);
-    }
     return (
         <div>
             <Slate
                 editor={editor}
-                onChange={(newValue) => handleValue(newValue)}
-                initialValue={value}
+                onChange={(newValue) => sendHandle(newValue)}
+                initialValue={sendNote}
             >
                 <Editable
                     onKeyDown={onKeyDown}
@@ -85,24 +62,6 @@ export default function Content({
                     placeholder="Nueva nota..."
                 ></Editable>
             </Slate>
-            <form onSubmit={handleSubmit} className="content-container">
-                <input
-                    type="text"
-                    name="title"
-                    className="title"
-                    placeholder="Título"
-                    onChange={(e) => handleOnTitle(e)}
-                    value={sendTitle}
-                />
-                <textarea
-                    name="content"
-                    className="content"
-                    placeholder="Escribe algo..."
-                    onChange={(e) => handleOnArea(e)}
-                    value={sendContent}
-                />
-                <Button type="submit" title="Guardar" styleName="submit" />
-            </form>
         </div>
     );
 }
