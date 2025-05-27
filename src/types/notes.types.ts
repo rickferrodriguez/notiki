@@ -1,12 +1,6 @@
-export interface Notes {
-    id: number;
-    title: string;
-    content: string;
-}
+import { Descendant } from 'slate';
 
-export interface ContentType {
-    sendNote: () => void;
-    sendHandle: (title: string, content: string) => void;
-    sendTitle: string;
-    sendContent: string;
+export interface Note {
+    id: number;
+    note: Descendant[];
 }

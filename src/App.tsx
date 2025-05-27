@@ -3,23 +3,26 @@ import './App.css';
 import Content from './components/Content';
 import Button from './components/Button';
 import { Descendant } from 'slate';
+import { Note } from './types/notes.types';
 
 function App() {
     const initialValue: Descendant[] = [
         {
             type: 'title',
-            children: [{ text: '', bold: true }],
+            children: [{ text: '' }],
         },
     ];
-    // const initialNotes: Notes[] = [{ id: 0, title: 'Nueva nota', content: '' }];
+    const initialNotes: Note[] = [{ id: 0, note: initialValue }];
     const [value, setValue] = useState<Descendant[]>(initialValue);
-    const [notes, setNotes] = useState<Descendant[][]>([initialValue]);
+    const [notes, setNotes] = useState<Note[]>(initialNotes);
     // const [actualNote, setActualNote] = useState<number>(0);
     // const [formTitle, setFormTitle] = useState<string>('');
     // const [formContent, setFormContent] = useState<string>('');
 
     function handleSetNote(content: Descendant[]) {
+        const actualNote: Note = { id: 0, note: content };
         setValue(content);
+        setNotes([actualNote]);
     }
     // function handleActualNote(idNote: number) {
     //     setActualNote(idNote);
@@ -32,7 +35,14 @@ function App() {
     // }
 
     function handleSaveNote() {
+        // TODO listar las notas y revisar como mostrar el titulo de cada una
         console.log(notes);
+        for (const note of notes) {
+            console.log(note);
+            for (const [key, value] of Object.entries(note)) {
+                console.log(key, value);
+            }
+        }
     }
     // function addNewNote() {
     //     setFormTitle('');

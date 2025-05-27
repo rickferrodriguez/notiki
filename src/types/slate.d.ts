@@ -13,7 +13,7 @@ type ContentElement = {
 
 type CustomElement = TitleElement | ContentElement;
 
-type FormattedText = { text: string; bold?: true };
+type FormattedText = { text: string };
 type CustomText = FormattedText;
 
 declare module 'slate' {
@@ -23,4 +23,3 @@ declare module 'slate' {
         Text: CustomText;
     }
 }
-export type CustomEditor = BaseEditor & ReactEditor;
