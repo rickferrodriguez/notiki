@@ -1,4 +1,4 @@
-import { Notes } from '../types/notes.types';
+import { Note } from '../types/notes.types';
 import Button from './Button';
 import './Files.css';
 
@@ -7,17 +7,17 @@ export default function Files({
     sendIdNote,
     sendAddNewNote,
 }: {
-    files: Notes[];
+    files: Note[];
     sendIdNote: (id: number) => void;
     sendAddNewNote: () => void;
 }) {
     function handleSendId(id: number) {
         sendIdNote(id);
     }
-    function Note({ myNotes }: { myNotes: Notes[] }) {
+    function Note({ myNotes }: { myNotes: Note[] }) {
         return myNotes.map((file) => (
             <li key={file.id} onClick={() => handleSendId(file.id)}>
-                {file.title}
+                {file.id}
             </li>
         ));
     }
