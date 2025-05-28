@@ -22,7 +22,11 @@ function App() {
     function handleSetNote(content: Descendant[]) {
         const actualNote: Note = { id: 0, note: content };
         setValue(content);
-        setNotes([actualNote]);
+        for (const note of notes) {
+            if (note.id === actualNote.id) {
+                setNotes([actualNote]);
+            }
+        }
     }
     // function handleActualNote(idNote: number) {
     //     setActualNote(idNote);
