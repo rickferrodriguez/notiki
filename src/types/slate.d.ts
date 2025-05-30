@@ -14,6 +14,7 @@ type ContentElement = {
 type CustomElement = TitleElement | ContentElement;
 
 type FormattedText = { text: string };
+
 type CustomText = FormattedText;
 
 declare module 'slate' {

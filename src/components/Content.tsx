@@ -1,8 +1,8 @@
 import './Content.css';
-import { useMemo, useCallback } from 'react';
-import { Editable, RenderElementProps, Slate, withReact } from 'slate-react';
+import { useCallback } from 'react';
+import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
 import {
-    createEditor,
+    BaseEditor,
     Descendant,
     Editor,
     Element as SlateElement,
@@ -12,16 +12,17 @@ import {
 export default function Content({
     sendNote,
     sendHandle,
+    sendEditor,
 }: {
     sendNote: Descendant[];
     sendHandle: (content: Descendant[]) => void;
+    sendEditor: BaseEditor & ReactEditor;
 }) {
-    const editor = useMemo(() => withReact(createEditor()), []);
-
+    // const editor = useMemo(() => withReact(createEditor()), []);
     const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             // [match] funciona como si llamara al primer elemento de un array => match = array[0]
-            const [match] = Editor.nodes(editor, {
+            const [match] = Editor.nodes(sendEditor, {
                 match: (n) =>
                     !Editor.isEditor(n) &&
                     SlateElement.isElement(n) &&
@@ -30,7 +31,7 @@ export default function Content({
 
             if (match) {
                 e.preventDefault();
-                Transforms.insertNodes(editor, {
+                Transforms.insertNodes(sendEditor, {
                     type: 'content',
                     children: [{ text: '' }],
                 });
@@ -51,7 +52,7 @@ export default function Content({
     return (
         <div>
             <Slate
-                editor={editor}
+                editor={sendEditor}
                 onChange={(newValue) => sendHandle(newValue)}
                 initialValue={sendNote}
             >
